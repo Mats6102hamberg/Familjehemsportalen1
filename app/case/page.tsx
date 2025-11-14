@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionCard } from "@/components/SectionCard";
 
@@ -8,6 +9,20 @@ export default function CasePage() {
         title="Case & övningar"
         subtitle="Här finns korta verklighetsnära case att använda i reflektion, handledning och utbildning."
       />
+
+      <div className="mb-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200">
+        <p>
+          Förutom dessa fasta case kan du även använda en{" "}
+          <Link
+            href="/case/generator"
+            className="font-semibold text-emerald-300 underline hover:text-emerald-200"
+          >
+            case-generator
+          </Link>{" "}
+          som skapar upp till 100 nya case automatiskt. Perfekt för nya grupper
+          eller extra övningar.
+        </p>
+      </div>
 
       <SectionCard title="Case 1 – Ungdom som inte får delta i skolaktivitet" badge="Skola / fritid">
         <p className="font-medium text-slate-100">Scenario:</p>
