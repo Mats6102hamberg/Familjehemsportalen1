@@ -9,7 +9,8 @@ async function login(formData: FormData) {
   const code = formData.get("code");
 
   if (code === ACCESS_CODE) {
-    cookies().set("fh_portal_auth", "ok", {
+    const cookieStore = await cookies();
+    cookieStore.set("fh_portal_auth", "ok", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -25,9 +26,10 @@ async function login(formData: FormData) {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: { error?: string };
+  searchParams: Promise<{ error?: string }>;
 }) {
-  const hasError = !!searchParams?.error;
+  const params = await searchParams;
+  const hasError = !!params?.error;
 
   return (
     <div className="max-w-md">
