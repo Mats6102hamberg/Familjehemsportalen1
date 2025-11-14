@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionCard } from "@/components/SectionCard";
 
@@ -36,6 +37,16 @@ export default function VerktygPage() {
         <p className="mt-3">
           När svaren pekar på stark kontroll, begränsningar och rädsla – förstärk
           stödet och ta frågan vidare enligt rutiner.
+        </p>
+
+        <p className="mt-3 text-xs text-slate-400">
+          Vill du skriva ut eller spara som PDF?{" "}
+          <Link
+            href="/verktyg/oro-hrv"
+            className="text-emerald-300 underline hover:text-emerald-200"
+          >
+            Öppna utskriftsvänlig version här.
+          </Link>
         </p>
       </SectionCard>
 

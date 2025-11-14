@@ -80,6 +80,10 @@ export default function HomePage() {
           </span>
         </Link>
       </div>
+
+      <p className="mt-8 text-[10px] text-slate-700">
+        <a href="/mats">M.</a>
+      </p>
     </div>
   );
 }

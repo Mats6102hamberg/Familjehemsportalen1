@@ -9,6 +9,7 @@ const links = [
   { href: "/akut", label: "Akut stöd" },
   { href: "/verktyg", label: "Verktyg" },
   { href: "/kunskap", label: "Kunskapsbank" },
+  { href: "/case", label: "Case" },
   { href: "/hallbarhet", label: "Egen hållbarhet" },
   { href: "/vardegrund", label: "Värdegrund" },
 ];
