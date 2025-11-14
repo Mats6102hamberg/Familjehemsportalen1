@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Shell } from "@/components/Shell";
+import { AkutButton } from "@/components/AkutButton";
 import { AIChatWidget } from "@/components/AIChatWidget";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         <div className="flex min-h-screen flex-col">
           <Nav />
           <Shell>{children}</Shell>
+          <AkutButton />
           <AIChatWidget />
         </div>
       </body>
