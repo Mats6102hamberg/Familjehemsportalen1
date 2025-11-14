@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Shell } from "@/components/Shell";
+import { AIChatWidget } from "@/components/AIChatWidget";
 
 export const metadata: Metadata = {
   title: "Tryggt stöd – Familjehemsportal",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <div className="flex min-h-screen flex-col">
           <Nav />
           <Shell>{children}</Shell>
+          <AIChatWidget />
         </div>
       </body>
     </html>
