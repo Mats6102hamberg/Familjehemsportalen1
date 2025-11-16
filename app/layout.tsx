@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv">
-      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
+      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased text-[15px] leading-relaxed md:text-base overflow-x-hidden">
         <div className="flex min-h-screen flex-col">
           <Nav />
           <Shell>{children}</Shell>

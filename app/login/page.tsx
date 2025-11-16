@@ -1,78 +1,84 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { PageHeader } from "@/components/PageHeader";
+"use client";
 
-const ACCESS_CODE = "TRYGGHET2025";
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-async function login(formData: FormData) {
-  "use server";
-  const code = formData.get("code");
+export default function LoginPage() {
+  const [code, setCode] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  if (code === ACCESS_CODE) {
-    const cookieStore = await cookies();
-    cookieStore.set("fh_portal_auth", "ok", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 30, // 30 dagar
-    });
-    redirect("/");
-  }
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/";
 
-  redirect("/login?error=1");
-}
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
-  const params = await searchParams;
-  const hasError = !!params?.error;
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Fel kod. Försök igen.");
+      } else {
+        router.push(redirectTo);
+      }
+    } catch {
+      setError("Tekniskt fel. Försök igen om en stund.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="max-w-md">
-      <PageHeader
-        title="Logga in till familjehemsportalen"
-        subtitle="Den här sidan är endast för deltagare i kursen."
-      />
-
-      <form action={login} className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
-        <div className="space-y-1">
-          <label
-            htmlFor="code"
-            className="text-sm font-medium text-slate-100"
-          >
-            Lösenord
-          </label>
-          <input
-            id="code"
-            name="code"
-            type="password"
-            required
-            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 outline-none ring-emerald-400/50 focus:border-emerald-400 focus:ring-1"
-            placeholder="Skriv in ditt kurslösenord"
-          />
-        </div>
-
-        {hasError && (
-          <p className="text-sm text-rose-400">
-            Lösenordet stämde inte. Försök igen eller kontakta Mats.
-          </p>
-        )}
-
-        <button
-          type="submit"
-          className="inline-flex w-full items-center justify-center rounded-xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 shadow-sm shadow-emerald-500/40 transition hover:bg-emerald-400"
-        >
-          Logga in
-        </button>
-
-        <p className="text-xs text-slate-400">
-          Ingen personlig klientinformation sparas på den här sidan.
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+      <div className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900/90 p-6 shadow-xl">
+        <h1 className="mb-2 text-lg font-semibold text-slate-50">
+          Inloggning till portalen
+        </h1>
+        <p className="mb-4 text-xs text-slate-300">
+          Sidan är avsedd för dig som arbetar med familjehem och hedersrelaterad
+          problematik. Ange den gemensamma koden för att gå vidare.
         </p>
-      </form>
+
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label className="block text-xs font-semibold text-slate-200">
+              Kod
+            </label>
+            <input
+              type="password"
+              autoComplete="off"
+              className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 outline-none ring-emerald-400/50 focus:border-emerald-400 focus:ring-1"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Ex: TRYGG1"
+            />
+          </div>
+
+          {error && <p className="text-xs text-red-400">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={loading || !code.trim()}
+            className="w-full rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm shadow-emerald-500/40 transition hover:bg-emerald-400 disabled:opacity-60"
+          >
+            {loading ? "Loggar in..." : "Logga in"}
+          </button>
+
+          <p className="text-[10px] text-slate-400">
+            Tips: Du kan dela koden muntligt med gruppen (t.ex. TRYGG1). Varje
+            person loggar in från sin egen enhet.
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
