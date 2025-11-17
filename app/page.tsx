@@ -1,13 +1,21 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
+import { LogoutButton } from "@/components/LogoutButton";
+import { Dashboard } from "@/components/Dashboard";
+import { PdfButton } from "@/components/PdfButton";
 
 export default function HomePage() {
   return (
     <div className="space-y-8">
-      <PageHeader
-        title="Välkommen – det här är din trygga plats"
-        subtitle="Det här är din digitala trygghetspunkt i ett av de svåraste uppdragen som finns: att ge stöd till familjehem och skydda barn och ungdomar som kan vara utsatta för hedersrelaterat våld och förtryck."
-      />
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <PageHeader
+          title="Välkommen – det här är din trygga plats"
+          subtitle="Det här är din digitala trygghetspunkt i ett av de svåraste uppdragen som finns: att ge stöd till familjehem och skydda barn och ungdomar som kan vara utsatta för hedersrelaterat våld och förtryck."
+        />
+        <div className="flex justify-end">
+          <LogoutButton />
+        </div>
+      </div>
 
       <p className="max-w-3xl text-sm leading-relaxed text-slate-200">
         Här hittar du stöd i akuta situationer, praktiska verktyg och
@@ -15,6 +23,12 @@ export default function HomePage() {
         enkel: du ska inte behöva bära allt i huvudet – och du ska aldrig behöva
         känna dig helt ensam med svåra beslut.
       </p>
+
+      <Dashboard />
+
+      <div className="flex justify-start">
+        <PdfButton />
+      </div>
 
       <div className="grid gap-5 md:grid-cols-3">
         <Link

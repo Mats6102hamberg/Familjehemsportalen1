@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { LogoutButton } from "./LogoutButton";
 
 const links = [
   { href: "/", label: "Hem" },
@@ -53,12 +54,7 @@ export const Nav = () => {
             );
           })}
         </nav>
-        <Link
-          href="/login"
-          className="rounded-full border border-slate-700 px-3 py-1 text-xs font-medium text-slate-200 hover:border-emerald-400 hover:text-emerald-200"
-        >
-          Logga in
-        </Link>
+        <LogoutButton />
       </div>
     </header>
   );
