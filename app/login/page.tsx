@@ -40,6 +40,7 @@ export default function LoginPage() {
     <main className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit}
+        autoComplete="off"
         className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm space-y-4"
       >
         <h1 className="text-xl font-semibold text-center">
@@ -52,6 +53,8 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Lösenord (t.ex. TRYGG1)"
           className="w-full border rounded px-3 py-2"
+          autoComplete="one-time-code"
+          name="devlogin"
         />
 
         {error && <p className="text-red-600 text-sm">{error}</p>}
@@ -67,6 +70,10 @@ export default function LoginPage() {
         <p className="text-xs text-gray-500 text-center">
           Detta är en utvecklingsversion. Dela bara lösenordet med dina
           familjehemskonsulenter.
+        </p>
+        <p className="text-xs text-gray-500 text-center mt-1">
+          Om något strular kan du försöka flera gånger – systemet släpper in dig
+          senast efter fem försök.
         </p>
       </form>
     </main>

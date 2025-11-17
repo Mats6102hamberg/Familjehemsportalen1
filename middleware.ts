@@ -4,7 +4,6 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Tillåt login, login-API och Nexts interna resurser
   if (
     pathname.startsWith("/login") ||
     pathname.startsWith("/api/login") ||
