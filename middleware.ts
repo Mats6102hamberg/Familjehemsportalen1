@@ -13,9 +13,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Offentliga sidor (utan inlogg)
+  // Offentliga sidor och API:er (utan inlogg)
   if (
     pathname.startsWith("/login") ||
+    pathname.startsWith("/api/login") ||
     pathname.startsWith("/api/ai")
   ) {
     return NextResponse.next();
@@ -29,7 +30,6 @@ export function middleware(req: NextRequest) {
 
   // Inte inloggad → skicka till /login
   const loginUrl = new URL("/login", req.url);
-  loginUrl.searchParams.set("redirectTo", pathname);
   return NextResponse.redirect(loginUrl);
 }
 
