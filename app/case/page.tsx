@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionCard } from "@/components/SectionCard";
+import { CaseGenerator } from "./generator/page";
 
 export default function CasePage() {
   return (
@@ -17,12 +18,15 @@ export default function CasePage() {
             href="/case/generator"
             className="font-semibold text-emerald-300 underline hover:text-emerald-200"
           >
-            case-generator
+            fristående case-generator
           </Link>{" "}
-          som skapar upp till 100 nya case automatiskt. Perfekt för nya grupper
-          eller extra övningar.
+          eller skapa nya case direkt här nedanför.
         </p>
       </div>
+
+      <SectionCard title="Case-generator" badge="Skapa nya case">
+        <CaseGenerator />
+      </SectionCard>
 
       <SectionCard title="Case 1 – Ungdom som inte får delta i skolaktivitet" badge="Skola / fritid">
         <p className="font-medium text-slate-100">Scenario:</p>

@@ -13,6 +13,10 @@ export const AIChatWidget = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const placeholderText =
+    mode === "hrv"
+      ? "Beskriv kort situationen du vill ha stöd i...\nExempel: 'Jag har en ungdom som vill hem trots risk...' eller 'Hjälp mig formulera ett mejl till familjehemmet.'"
+      : "Vad vill du ha hjälp med?\nExempel: 'Kan du hjälpa mig planera nästa träff?' eller 'Gör en kort punktlista åt mig.'";
 
   const handleSend = async () => {
     const trimmed = input.trim();
@@ -167,11 +171,7 @@ export const AIChatWidget = () => {
             <textarea
               rows={2}
               className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-2 py-1 text-[11px] text-slate-50 outline-none ring-emerald-400/50 focus:border-emerald-400 focus:ring-1"
-              placeholder={
-                mode === "hrv"
-                  ? "Beskriv kort situationen du vill ha stöd i..."
-                  : "Vad vill du ha hjälp med?"
-              }
+              placeholder={placeholderText}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
