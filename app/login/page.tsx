@@ -1,17 +1,17 @@
 "use client";
 
-import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function LoginForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [redirectTo, setRedirectTo] = useState("/");
 
-  // IMPORTANT: prevent SSR issues
-  const redirectTo =
-    typeof window !== "undefined"
-      ? searchParams.get("redirectTo") || "/"
-      : "/";
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    setRedirectTo(params.get("redirectTo") || "/");
+  }, []);
 
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
