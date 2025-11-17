@@ -1,39 +1,29 @@
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Släpp igenom Next.js interna filer och statiska resurser
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname.startsWith("/assets")
-  ) {
-    return NextResponse.next();
-  }
-
-  // Offentliga sidor och API:er (utan inlogg)
+  // Tillåt login, login-API och Nexts interna resurser
   if (
     pathname.startsWith("/login") ||
     pathname.startsWith("/api/login") ||
-    pathname.startsWith("/api/ai")
+    pathname.startsWith("/_next") ||
+    pathname === "/favicon.ico"
   ) {
     return NextResponse.next();
   }
 
-  const authCookie = req.cookies.get("portal_auth")?.value;
+  const isLoggedIn = req.cookies.get("fhp_auth")?.value === "ok";
 
-  if (authCookie === "ok") {
-    return NextResponse.next();
+  if (!isLoggedIn) {
+    const loginUrl = new URL("/login", req.url);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // Inte inloggad → skicka till /login
-  const loginUrl = new URL("/login", req.url);
-  return NextResponse.redirect(loginUrl);
+  return NextResponse.next();
 }
 
-// Kör på alla routes utom Nexts egna statiska
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
