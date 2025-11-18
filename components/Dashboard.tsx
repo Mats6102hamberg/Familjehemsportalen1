@@ -2,30 +2,48 @@
 
 import Link from "next/link";
 
-const items = [
-  { title: "Case", href: "/case" },
-  { title: "Journalanteckningar", href: "/journal" },
-  { title: "PDF-mallar", href: "/pdf-mallar" },
-  { title: "Checklista för handledning", href: "/checklista" },
-  { title: "Mötesanteckningar", href: "/moten" },
-  { title: "Favoriter", href: "/favoriter" },
+const cards = [
+  {
+    title: "Case",
+    href: "/case",
+    description: "Klicka för att öppna case.",
+  },
+  {
+    title: "Journalanteckningar",
+    href: "/journalanteckningar",
+    description: "Klicka för att öppna journalanteckningar.",
+  },
+  {
+    title: "PDF-mallar",
+    href: "/pdf-mallar",
+    description: "Klicka för att öppna pdf-mallar.",
+  },
+  {
+    title: "Checklista för handledning",
+    href: "/checklista",
+    description: "Klicka för att öppna checklista för handledning.",
+  },
+  {
+    title: "Mötesanteckningar",
+    href: "/motesanteckningar",
+    description: "Klicka för att öppna mötesanteckningar.",
+  },
+  {
+    title: "Favoriter",
+    href: "/favoriter",
+    description: "Klicka för att öppna favoriter.",
+  },
 ];
 
 export function Dashboard() {
   return (
-    <div className="grid grid-cols-1 gap-6 pt-4 md:grid-cols-3">
-      {items.map((item) => (
-        <Link
-          key={item.title}
-          href={item.href}
-          className="block rounded-xl border border-slate-800 bg-slate-900/60 p-6 shadow-sm shadow-slate-950/40 transition hover:-translate-y-0.5 hover:border-emerald-300"
-        >
-          <h2 className="mb-2 text-xl font-semibold text-slate-50">
-            {item.title}
-          </h2>
-          <p className="text-sm text-slate-300">
-            Klicka för att öppna {item.title.toLowerCase()}.
-          </p>
+    <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-3">
+      {cards.map((card) => (
+        <Link key={card.title} href={card.href} className="block">
+          <div className="rounded-xl bg-[#111827] p-6 transition hover:bg-[#1f2937]">
+            <h2 className="mb-2 text-3xl font-bold">{card.title}</h2>
+            <p>{card.description}</p>
+          </div>
         </Link>
       ))}
     </div>
