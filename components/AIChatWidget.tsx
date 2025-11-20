@@ -184,7 +184,7 @@ export const AIChatWidget = () => {
 
             {/* Diktationstips */}
             <div className="text-slate-400 text-xs rounded-lg bg-slate-800/50 border border-slate-700 p-3">
-              <strong className="text-slate-300">💬 Tips:</strong> Du kan använda röstdikning på din enhet:{" "}
+              <strong className="text-slate-300">💬 Tips:</strong> Du kan använda röstigenkänning på din enhet:{" "}
               <span className="font-medium text-slate-200">⌘ + fn + fn</span> (Mac) eller{" "}
               <span className="font-medium text-slate-200">Win + H</span> (Windows).
             </div>
