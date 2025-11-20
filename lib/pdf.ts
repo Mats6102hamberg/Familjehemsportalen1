@@ -174,3 +174,85 @@ export function generateCaseSummaryPdf(summary: CaseSummary): void {
   const filename = `case_${summary.arendekod || "arende"}_${summary.datum || "datum"}.pdf`;
   doc.save(filename);
 }
+
+/**
+ * Generera PDF för mötessammanfattning med originalanteckningar och AI-genererad text
+ */
+export function generateMeetingSummaryPdf(
+  notes: string,
+  summary: string
+): void {
+  const doc = new jsPDF();
+  let yPos = 20;
+  const maxWidth = 170;
+
+  // Titel
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+  doc.text("Motessammanfattning", 20, yPos);
+  yPos += 15;
+
+  // Metadata
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(100);
+  doc.text(`Skapad: ${new Date().toLocaleString("sv-SE")}`, 20, yPos);
+  yPos += 15;
+
+  // Originalanteckningar
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(0);
+  doc.text("Originalanteckningar", 20, yPos);
+  yPos += 8;
+
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  yPos = addWrappedText(doc, notes || "(Inga anteckningar)", 20, yPos, maxWidth);
+  yPos += 10;
+
+  // Ny sida om nödvändigt
+  if (yPos > 250) {
+    doc.addPage();
+    yPos = 20;
+  }
+
+  // Genererad sammanfattning
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.text("Genererad sammanfattning", 20, yPos);
+  yPos += 8;
+
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+
+  // Dela upp sammanfattningen i sektioner och lägg till med automatisk sidbrytning
+  const lines = summary.split('\n');
+  for (const line of lines) {
+    // Kontrollera om vi behöver ny sida
+    if (yPos > 270) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    // Hantera rubriker (börjar med #)
+    if (line.startsWith('#')) {
+      yPos += 5; // Extra mellanrum före rubrik
+      doc.setFont("helvetica", "bold");
+      const headerText = line.replace(/^#+\s*/, ''); // Ta bort #-tecken
+      yPos = addWrappedText(doc, headerText, 20, yPos, maxWidth);
+      doc.setFont("helvetica", "normal");
+      yPos += 3;
+    } else if (line.trim()) {
+      yPos = addWrappedText(doc, line, 20, yPos, maxWidth);
+      yPos += 2;
+    } else {
+      yPos += 4; // Tom rad
+    }
+  }
+
+  // Spara PDF
+  const timestamp = new Date().toISOString().slice(0, 10);
+  const filename = `motessammanfattning_${timestamp}.pdf`;
+  doc.save(filename);
+}

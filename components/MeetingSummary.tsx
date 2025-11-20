@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionCard } from "@/components/SectionCard";
+import { generateMeetingSummaryPdf } from "@/lib/pdf";
+import { useToast } from "@/components/ToastProvider";
 
 export const MeetingSummary = () => {
   const [notes, setNotes] = useState("");
@@ -143,11 +145,40 @@ Skriv allt på svenska, tydligt uppdelat med rubriker:
         )}
 
         {result && (
-          <div className="mt-2 whitespace-pre-wrap rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-sm text-slate-100">
-            {result}
-          </div>
+          <>
+            <div className="mt-2 whitespace-pre-wrap rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-sm text-slate-100">
+              {result}
+            </div>
+
+            <MeetingSummaryPdfButton notes={notes} summary={result} />
+          </>
         )}
       </SectionCard>
     </div>
   );
 };
+
+function MeetingSummaryPdfButton({ notes, summary }: { notes: string; summary: string }) {
+  const { showToast } = useToast();
+
+  const handleGeneratePdf = () => {
+    try {
+      generateMeetingSummaryPdf(notes, summary);
+      showToast("PDF skapad", "success");
+    } catch (error) {
+      console.error("PDF-fel:", error);
+      showToast("Fel vid PDF-skapande", "error");
+    }
+  };
+
+  return (
+    <div className="mt-4 flex justify-end">
+      <button
+        onClick={handleGeneratePdf}
+        className="px-6 py-2 bg-emerald-500 text-slate-950 font-semibold rounded-lg hover:bg-emerald-400 transition shadow-sm shadow-emerald-500/40"
+      >
+        Skapa PDF
+      </button>
+    </div>
+  );
+}
