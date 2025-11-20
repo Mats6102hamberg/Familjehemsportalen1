@@ -8,6 +8,7 @@ const links = [
   { href: "/", label: "Hem" },
   { href: "/akut", label: "Akut stöd" },
   { href: "/verktyg", label: "Verktyg" },
+  { href: "/verktyg/arbetsbord", label: "Arbetsbord" },
   { href: "/kunskap", label: "Kunskapsbank" },
   { href: "/case", label: "Case" },
   { href: "/motesammanfattning", label: "Mötes\u00adsammanfattning" },
