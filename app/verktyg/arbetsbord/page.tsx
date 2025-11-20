@@ -50,11 +50,16 @@ export default function ArbetsbordPage() {
         </div>
 
         {/* Info */}
-        <div className="rounded-lg bg-slate-800/50 border border-slate-700 p-4">
+        <div className="rounded-lg bg-slate-800/50 border border-slate-700 p-4 space-y-3">
           <p className="text-xs text-slate-400">
             <strong className="text-slate-300">💾 Autosparande:</strong> Dina
             anteckningar sparas automatiskt i webbläsaren. Data lagras endast
             lokalt på din dator och skickas aldrig till någon server.
+          </p>
+          <p className="text-xs text-slate-400">
+            <strong className="text-slate-300">Tips:</strong> Du kan skriva ut eller spara som PDF med{" "}
+            <span className="font-medium text-slate-200">⌘ + P</span> (Mac) eller{" "}
+            <span className="font-medium text-slate-200">Ctrl + P</span> (Windows).
           </p>
         </div>
       </div>

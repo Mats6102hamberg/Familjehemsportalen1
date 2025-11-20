@@ -4,12 +4,20 @@ import { PrintButton } from "@/components/PrintButton";
 export default function OroHRVPrintPage() {
   return (
     <div className="print:bg-white print:text-black">
-      <div className="print:hidden mb-4 flex items-center justify-between">
-        <PageHeader
-          title="Oro för hedersrelaterat våld – utskriftsversion"
-          subtitle="Använd webbläsarens 'Skriv ut' och välj 'Spara som PDF' om du vill skapa en PDF."
-        />
-        <PrintButton />
+      <div className="print:hidden mb-4">
+        <div className="flex items-center justify-between mb-4">
+          <PageHeader
+            title="Oro för hedersrelaterat våld – utskriftsversion"
+            subtitle="Använd webbläsarens 'Skriv ut' och välj 'Spara som PDF' om du vill skapa en PDF."
+          />
+          <PrintButton />
+        </div>
+
+        <div className="text-slate-400 text-sm mb-4 rounded-lg bg-slate-800/50 border border-slate-700 p-4">
+          <strong className="text-slate-300">Tips:</strong> Du kan skriva ut eller spara som PDF med{" "}
+          <span className="font-medium text-slate-200">⌘ + P</span> (Mac) eller{" "}
+          <span className="font-medium text-slate-200">Ctrl + P</span> (Windows).
+        </div>
       </div>
 
       <div className="rounded-2xl border border-slate-700 bg-slate-900/70 p-5 print:border-none print:bg-white print:p-0">

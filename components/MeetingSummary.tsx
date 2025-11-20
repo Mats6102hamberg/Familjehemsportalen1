@@ -88,11 +88,17 @@ Skriv allt på svenska, tydligt uppdelat med rubriker:
       />
 
       <SectionCard title="1. Klistra in dina anteckningar" badge="Underlag">
-        <p className="text-sm text-slate-200">
+        <p className="text-sm text-slate-200 mb-4">
           Efter ett möte (t.ex. tre timmar via Teams): klistra in dina råa
           anteckningar här. Det gör inget om de är röriga – AI:n hjälper dig att
           sortera.
         </p>
+
+        <div className="text-slate-400 text-sm mb-4 rounded-lg bg-slate-800/50 border border-slate-700 p-3">
+          <strong className="text-slate-300">Tips:</strong> Du kan skriva ut eller spara som PDF med{" "}
+          <span className="font-medium text-slate-200">⌘ + P</span> (Mac) eller{" "}
+          <span className="font-medium text-slate-200">Ctrl + P</span> (Windows).
+        </div>
 
         <textarea
           className="mt-3 w-full min-h-[200px] rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none ring-emerald-400/50 focus:border-emerald-400 focus:ring-1"
