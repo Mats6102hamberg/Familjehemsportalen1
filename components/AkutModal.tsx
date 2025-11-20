@@ -169,11 +169,8 @@ export const AkutModal = ({
 
             <button
               onClick={() => {
-                // Trigger AI-stöttning via din AI-widget
-                alert(
-                  "Öppna AI-stödet nere till höger och skriv: \n\n" +
-                    situation.aiPrompt
-                );
+                // Kopiera prompt till urklipp
+                navigator.clipboard.writeText(situation.aiPrompt);
               }}
               className="
                 mt-4 w-full
@@ -182,8 +179,9 @@ export const AkutModal = ({
                 py-2
                 hover:bg-emerald-400
               "
+              title="Kopierar prompt till urklipp"
             >
-              Få AI-stöd i detta
+              Kopiera AI-prompt
             </button>
           </div>
         )}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionCard } from "@/components/SectionCard";
-import CaseGenerator from "./generator/page";
+import CaseGenerator from "@/components/CaseGenerator";
 
 export default function CasePage() {
   return (

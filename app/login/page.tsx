@@ -19,8 +19,6 @@ export default function LoginPage() {
         body: JSON.stringify({ password }),
       });
 
-      console.log("Login status:", res.status);
-
       if (res.ok) {
         window.location.href = "/";
       } else if (res.status === 401) {

@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ShellProps {
   children: React.ReactNode;
 }

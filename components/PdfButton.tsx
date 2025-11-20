@@ -12,7 +12,7 @@ export function PdfButton() {
     });
 
     if (!res.ok) {
-      alert("Det gick inte att skapa PDF just nu. Försök igen senare.");
+      console.error("PDF-generering misslyckades");
       return;
     }
 

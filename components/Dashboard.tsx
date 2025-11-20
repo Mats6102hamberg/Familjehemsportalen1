@@ -41,7 +41,9 @@ export function Dashboard() {
       {cards.map((card) => (
         <Link key={card.title} href={card.href} className="block">
           <div className="rounded-xl bg-[#111827] p-6 transition hover:bg-[#1f2937]">
-            <h2 className="mb-2 text-3xl font-bold">{card.title}</h2>
+            <h2 className="mb-2 text-3xl font-bold leading-tight break-words">
+              {card.title}
+            </h2>
             <p>{card.description}</p>
           </div>
         </Link>

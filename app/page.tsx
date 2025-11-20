@@ -96,7 +96,7 @@ export default function HomePage() {
       </div>
 
       <p className="mt-8 text-[10px] text-slate-700">
-        <a href="/mats">M.</a>
+        <Link href="/mats" className="hover:text-emerald-400">M.</Link>
       </p>
     </div>
   );
