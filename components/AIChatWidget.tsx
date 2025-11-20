@@ -84,35 +84,36 @@ export const AIChatWidget = () => {
 
       {/* Själva chatfönstret */}
       {isOpen && (
-        <div className="fixed bottom-16 right-4 z-40 w-[min(100vw-2rem,380px)] rounded-2xl border border-slate-800 bg-slate-950/95 p-3 shadow-xl backdrop-blur">
-          <div className="mb-2 flex items-center justify-between gap-2">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-4">
+          <div className="bg-slate-900 rounded-xl w-[90%] sm:w-[60%] max-w-[700px] h-auto sm:h-[70vh] overflow-y-auto shadow-xl border border-slate-700 p-6">
+          <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-50">
+              <h2 className="text-lg font-semibold text-slate-100">
                 AI-stöd & handledning
-              </p>
-              <p className="text-[11px] text-slate-400">
+              </h2>
+              <p className="text-sm text-slate-400">
                 Beskriv en situation eller be om hjälp. AI:n ger förslag, inte beslut.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-full border border-slate-700 px-2 py-0.5 text-[10px] text-slate-300 hover:border-emerald-400 hover:text-emerald-200"
+              className="text-slate-400 hover:text-slate-200 text-xl"
             >
               ×
             </button>
           </div>
 
           {/* Växla läge */}
-          <div className="mb-2 flex items-center gap-2">
+          <div className="mb-4 flex items-center gap-3">
             <button
               type="button"
               onClick={() => setMode("hrv")}
               className={
-                "flex-1 rounded-full px-2 py-1 text-[11px] " +
+                "flex-1 rounded-full px-4 py-2 text-sm font-medium transition " +
                 (mode === "hrv"
                   ? "bg-emerald-500 text-slate-950"
-                  : "border border-slate-700 text-slate-200")
+                  : "border border-slate-700 text-slate-200 hover:bg-slate-800")
               }
             >
               Svåra situationer
@@ -121,23 +122,23 @@ export const AIChatWidget = () => {
               type="button"
               onClick={() => setMode("general")}
               className={
-                "flex-1 rounded-full px-2 py-1 text-[11px] " +
+                "flex-1 rounded-full px-4 py-2 text-sm font-medium transition " +
                 (mode === "general"
                   ? "bg-slate-200 text-slate-950"
-                  : "border border-slate-700 text-slate-200")
+                  : "border border-slate-700 text-slate-200 hover:bg-slate-800")
               }
             >
               Allmän hjälp
             </button>
           </div>
 
-          <p className="mb-2 text-[10px] text-slate-400">
-            Skriv inte in namn, personnummer eller andra direkt identifierande
+          <p className="mb-4 text-xs text-slate-400 rounded-lg bg-slate-800/50 border border-slate-700 p-3">
+            <strong className="text-slate-300">⚠️ Viktigt:</strong> Skriv inte in namn, personnummer eller andra direkt identifierande
             uppgifter. Vid akut fara: följ rutiner och ring 112.
           </p>
 
           {/* Meddelanden */}
-          <div className="mb-2 max-h-52 space-y-2 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 p-2 text-[11px]">
+          <div className="mb-4 max-h-64 space-y-3 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-sm">
             {messages.length === 0 && (
               <p className="text-slate-400">
                 Exempel: “Jag har en ungdom som vill hem trots risk...” eller
@@ -167,10 +168,9 @@ export const AIChatWidget = () => {
           </div>
 
           {/* Input + knapp */}
-          <div className="flex items-end gap-2">
+          <div className="space-y-3">
             <textarea
-              rows={2}
-              className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-2 py-1 text-[11px] text-slate-50 outline-none ring-emerald-400/50 focus:border-emerald-400 focus:ring-1"
+              className="w-full min-h-[200px] sm:min-h-[280px] bg-slate-800 text-slate-100 p-4 rounded-lg border border-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-vertical"
               placeholder={placeholderText}
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -181,14 +181,25 @@ export const AIChatWidget = () => {
                 }
               }}
             />
-            <button
-              type="button"
-              onClick={handleSend}
-              disabled={isLoading}
-              className="rounded-xl bg-emerald-500 px-3 py-1 text-[11px] font-semibold text-slate-950 shadow-sm shadow-emerald-500/40 transition hover:bg-emerald-400 disabled:opacity-60"
-            >
-              {isLoading ? "..." : "Skicka"}
-            </button>
+
+            {/* Diktationstips */}
+            <div className="text-slate-400 text-xs rounded-lg bg-slate-800/50 border border-slate-700 p-3">
+              <strong className="text-slate-300">💬 Tips:</strong> Du kan använda röstdikning på din enhet:{" "}
+              <span className="font-medium text-slate-200">⌘ + fn + fn</span> (Mac) eller{" "}
+              <span className="font-medium text-slate-200">Win + H</span> (Windows).
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleSend}
+                disabled={isLoading}
+                className="px-6 py-2 bg-emerald-500 text-slate-950 font-semibold rounded-lg hover:bg-emerald-400 transition shadow-sm shadow-emerald-500/40 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Arbetar..." : "Skicka"}
+              </button>
+            </div>
+          </div>
           </div>
         </div>
       )}
